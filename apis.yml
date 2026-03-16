@@ -1,12 +1,26 @@
+aid: fluentd
 name: Fluentd
 description: Open source data collector for unified logging layer that allows you
   to unify data collection and consumption for better use and understanding of data.
-url: https://www.fluentd.org/
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/fluentd/refs/heads/main/apis.yml
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
-- Logging
-- Data Collection
-- Open Source
-created: '2025'
-modified: '2025'
+  - Logging
+  - Data Collection
+  - Open Source
 apis: []
-common: []
+common:
+  - type: Website
+    url: https://www.fluentd.org/
+  - type: Documentation
+    url: https://docs.fluentd.org/
+  - type: GitHub Organization
+    url: https://github.com/fluent
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
