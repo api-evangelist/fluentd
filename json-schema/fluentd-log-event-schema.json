@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/fluentd/blob/main/json-schema/fluentd-log-event-schema.json",
+  "title": "Fluentd Log Event",
+  "description": "A Fluentd log event consisting of a tag, a timestamp, and an arbitrary record payload. This is the fundamental data unit flowing through a Fluentd pipeline from inputs through filters to outputs.",
+  "type": "object",
+  "required": ["tag", "time", "record"],
+  "properties": {
+    "tag": {
+      "type": "string",
+      "description": "The Fluentd routing tag using dot-separated hierarchical notation. Tags are matched by match directives to route events to the appropriate output plugins.",
+      "pattern": "^[a-zA-Z0-9_][a-zA-Z0-9_.\\-]*$",
+      "examples": ["myapp.access", "production.web.error", "kubernetes.var.log"]
+    },
+    "time": {
+      "description": "The event timestamp. Can be a Unix epoch integer in seconds or a Fluentd EventTime object with nanosecond precision.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "description": "Unix epoch timestamp in seconds.",
+          "minimum": 0,
+          "example": 1700000000
+        },
+        {
+          "$ref": "#/$defs/EventTime"
+        }
+      ]
+    },
+    "record": {
+      "$ref": "#/$defs/Record"
+    }
+  },
+  "$defs": {
+    "EventTime": {
+      "type": "object",
+      "title": "EventTime",
+      "description": "A Fluentd EventTime object providing nanosecond-precision timestamps. Corresponds to MessagePack extension type 0.",
+      "required": ["seconds", "nanoseconds"],
+      "properties": {
+        "seconds": {
+          "type": "integer",
+          "description": "Seconds since Unix epoch (1970-01-01T00:00:00Z).",
+          "minimum": 0
+        },
+        "nanoseconds": {
+          "type": "integer",
+          "description": "Nanosecond component of the timestamp.",
+          "minimum": 0,
+          "maximum": 999999999
+        }
+      }
+    },
+    "Record": {
+      "type": "object",
+      "title": "Record",
+      "description": "The log record payload. An arbitrary key-value map where keys are strings. Values can be strings, numbers, booleans, arrays, or nested objects as emitted by the source plugin or transformed by filter plugins.",
+      "additionalProperties": true,
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Human-readable log message text."
+        },
+        "level": {
+          "type": "string",
+          "description": "Log severity level.",
+          "enum": ["trace", "debug", "info", "warn", "error", "fatal"]
+        },
+        "host": {
+          "type": "string",
+          "description": "Hostname or IP address of the source system that generated the log event."
+        },
+        "service": {
+          "type": "string",
+          "description": "Name of the service or application that emitted the log event."
+        },
+        "pid": {
+          "type": "integer",
+          "description": "Process ID of the process that generated the log event.",
+          "minimum": 1
+        }
+      }
+    },
+    "HTTPEventPayload": {
+      "type": "object",
+      "title": "HTTPEventPayload",
+      "description": "The request body format for submitting a log event to the Fluentd HTTP Input plugin. The json property wraps the record payload.",
+      "properties": {
+        "json": {
+          "$ref": "#/$defs/Record",
+          "description": "The log record payload wrapped for HTTP submission."
+        },
+        "time": {
+          "type": "integer",
+          "description": "Unix epoch timestamp for the event in seconds. If omitted, Fluentd uses the server receive time.",
+          "minimum": 0
+        }
+      }
+    },
+    "ForwardAck": {
+      "type": "object",
+      "title": "ForwardAck",
+      "description": "Acknowledgement response sent by a Fluentd aggregator to confirm receipt of a Forward Protocol message batch identified by a chunk ID.",
+      "required": ["ack"],
+      "properties": {
+        "ack": {
+          "type": "string",
+          "description": "The base64-encoded chunk ID from the received message's option map, echoed back to confirm delivery."
+        }
+      }
+    },
+    "PluginConfig": {
+      "type": "object",
+      "title": "PluginConfig",
+      "description": "Common configuration fields shared across Fluentd input, output, filter, parser, and formatter plugins.",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "The plugin type identifier used in Fluentd configuration files (e.g., 'tail', 'forward', 'elasticsearch')."
+        },
+        "@id": {
+          "type": "string",
+          "description": "An optional unique identifier for this plugin instance, used for monitoring and management APIs."
+        },
+        "@log_level": {
+          "type": "string",
+          "description": "Per-plugin log level override.",
+          "enum": ["trace", "debug", "info", "warn", "error", "fatal"]
+        }
+      }
+    }
+  }
+}

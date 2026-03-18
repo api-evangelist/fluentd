@@ -1,0 +1,160 @@
+openapi: 3.1.0
+info:
+  title: Fluentd HTTP Input API
+  description: >-
+    The Fluentd HTTP Input plugin exposes an HTTP endpoint that accepts log
+    records posted as JSON, MessagePack, or form-encoded data. It allows
+    applications to send events to Fluentd over standard HTTP, making it
+    accessible from any language or platform that can make HTTP requests.
+    Events can be sent individually or in batches, and the tag routing system
+    determines downstream processing pipelines.
+  version: '1.0.0'
+  contact:
+    name: Fluentd Community
+    url: https://www.fluentd.org/community/
+  termsOfService: https://www.fluentd.org/
+externalDocs:
+  description: Fluentd HTTP Input Plugin Documentation
+  url: https://docs.fluentd.org/input/http
+servers:
+  - url: http://localhost:8888
+    description: Default Fluentd HTTP Input Server
+tags:
+  - name: Events
+    description: >-
+      Operations for posting log events and records to Fluentd via HTTP.
+  - name: Health
+    description: >-
+      Health and status endpoints for the Fluentd HTTP input listener.
+paths:
+  /{tag}:
+    post:
+      operationId: postEvent
+      summary: Post a log event
+      description: >-
+        Posts a single log event to Fluentd with the specified tag. The tag
+        determines which Fluentd match rules route the event downstream. The
+        request body can be JSON, MessagePack, or form-encoded. When sending
+        JSON, the Content-Type must be application/json. The time field can be
+        supplied in the body or omitted to use the server receive time.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/tag'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRecord'
+            examples:
+              simple:
+                summary: Simple log record
+                value:
+                  json:
+                    level: info
+                    message: Application started
+                    service: my-app
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FormEventRecord'
+          application/msgpack:
+            schema:
+              $ref: '#/components/schemas/EventRecord'
+      responses:
+        '200':
+          description: Event accepted successfully.
+        '400':
+          description: Bad request. The payload is malformed or missing required fields.
+        '500':
+          description: Internal server error. Fluentd failed to process the event.
+  /{tag}.{format}:
+    post:
+      operationId: postEventWithFormat
+      summary: Post a log event with explicit format
+      description: >-
+        Posts a single log event to Fluentd with both a tag and an explicit
+        format specifier in the path. The format segment can be 'json' or
+        'msgpack' and overrides Content-Type-based format detection. This is
+        useful for clients that cannot set Content-Type headers correctly.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/tag'
+        - $ref: '#/components/parameters/format'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FormEventRecord'
+      responses:
+        '200':
+          description: Event accepted successfully.
+        '400':
+          description: Bad request. The payload is malformed or missing required fields.
+        '500':
+          description: Internal server error. Fluentd failed to process the event.
+components:
+  parameters:
+    tag:
+      name: tag
+      in: path
+      required: true
+      description: >-
+        The Fluentd tag for this event. Tags use dot-separated hierarchical
+        notation (e.g., myapp.access, production.web.error) and are used by
+        match directives to route events to outputs.
+      schema:
+        type: string
+        example: myapp.access
+    format:
+      name: format
+      in: path
+      required: true
+      description: >-
+        Explicit format specifier for the request body. Accepted values are
+        'json' and 'msgpack'.
+      schema:
+        type: string
+        enum:
+          - json
+          - msgpack
+  schemas:
+    EventRecord:
+      type: object
+      description: >-
+        A Fluentd log event record submitted via HTTP. The 'json' property
+        wraps the actual log payload. An optional 'time' field sets the event
+        timestamp; if omitted, Fluentd uses the server receive time.
+      properties:
+        json:
+          type: object
+          description: >-
+            The log record payload as an arbitrary key-value object. All fields
+            are application-defined and passed through to downstream outputs.
+          additionalProperties: true
+          example:
+            level: info
+            message: User login successful
+            user_id: 42
+        time:
+          type: integer
+          description: >-
+            Unix epoch timestamp for the event in seconds. If omitted, the
+            Fluentd server assigns the receive time.
+          example: 1700000000
+    FormEventRecord:
+      type: object
+      description: >-
+        A Fluentd log event submitted as URL-encoded form data. Each form
+        field becomes a key-value pair in the event record.
+      additionalProperties:
+        type: string
+      example:
+        level: warn
+        message: Disk usage above 80%
+        host: web-01

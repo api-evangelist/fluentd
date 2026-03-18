@@ -1,0 +1,92 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fluentd": "https://docs.fluentd.org/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "LogEvent": {
+      "@id": "fluentd:plugin-development/api-plugin-base",
+      "@context": {
+        "tag": {
+          "@id": "fluentd:routing",
+          "@type": "xsd:string"
+        },
+        "time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "record": {
+          "@id": "schema:value"
+        }
+      }
+    },
+
+    "Record": {
+      "@id": "schema:DataFeedItem",
+      "@context": {
+        "message": "schema:description",
+        "level": "schema:category",
+        "host": "schema:hostName",
+        "service": "schema:name",
+        "pid": "schema:identifier"
+      }
+    },
+
+    "Plugin": {
+      "@id": "schema:SoftwareApplication",
+      "@context": {
+        "@type": "schema:additionalType",
+        "@id": "schema:identifier",
+        "log_level": "schema:category",
+        "tag": "schema:keywords"
+      }
+    },
+
+    "InputPlugin": {
+      "@id": "schema:SoftwareApplication",
+      "@context": {
+        "bind": "schema:url",
+        "port": "schema:portNumber",
+        "format": "schema:encodingFormat"
+      }
+    },
+
+    "OutputPlugin": {
+      "@id": "schema:SoftwareApplication",
+      "@context": {
+        "host": "schema:hostName",
+        "port": "schema:portNumber",
+        "buffer": "schema:hasPart"
+      }
+    },
+
+    "Buffer": {
+      "@id": "schema:DataCatalog",
+      "@context": {
+        "path": "schema:contentUrl",
+        "chunk_limit_size": "schema:fileSize",
+        "queue_limit_length": "schema:numberOfItems",
+        "flush_interval": "schema:duration",
+        "retry_max_times": "schema:repeatCount"
+      }
+    },
+
+    "ForwardMessage": {
+      "@id": "fluentd:protocol",
+      "@context": {
+        "tag": {
+          "@id": "fluentd:routing",
+          "@type": "xsd:string"
+        },
+        "entries": {
+          "@id": "schema:hasPart",
+          "@container": "@set"
+        },
+        "chunk": "schema:identifier",
+        "compressed": "schema:encodingFormat"
+      }
+    }
+  }
+}
