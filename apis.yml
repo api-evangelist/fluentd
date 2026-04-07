@@ -1,7 +1,6 @@
 aid: fluentd
 name: Fluentd
-description: Open source data collector for unified logging layer that allows you
-  to unify data collection and consumption for better use and understanding of data.
+description: Open source data collector for unified logging layer that allows you to unify data collection and consumption for better use and understanding of data.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: >-
@@ -10,8 +9,8 @@ created: '2025-01-01'
 modified: '2026-03-18'
 specificationVersion: '0.19'
 tags:
-  - Logging
   - Data Collection
+  - Logging
   - Open Source
 apis:
   - aid: fluentd:fluentd-plugin-api
@@ -23,9 +22,9 @@ apis:
       system to extend data collection and processing pipelines.
     humanURL: https://docs.fluentd.org/plugin-development
     tags:
+      - Open Source
       - Plugin Development
       - Ruby
-      - Open Source
     properties:
       - type: Documentation
         url: https://docs.fluentd.org/plugin-development
@@ -41,9 +40,9 @@ apis:
       mechanisms.
     humanURL: https://github.com/fluent/fluentd/wiki/Forward-Protocol-Specification-v1
     tags:
-      - Protocol
-      - Networking
       - Logging
+      - Networking
+      - Protocol
     properties:
       - type: Documentation
         url: https://github.com/fluent/fluentd/wiki/Forward-Protocol-Specification-v1

@@ -23,9 +23,6 @@ tags:
   - name: Events
     description: >-
       Operations for posting log events and records to Fluentd via HTTP.
-  - name: Health
-    description: >-
-      Health and status endpoints for the Fluentd HTTP input listener.
 paths:
   /{tag}:
     post:
