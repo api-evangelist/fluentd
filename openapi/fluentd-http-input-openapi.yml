@@ -30,7 +30,7 @@ paths:
   /{tag}:
     post:
       operationId: postEvent
-      summary: Post a log event
+      summary: Fluentd Post a log event
       description: >-
         Posts a single log event to Fluentd with the specified tag. The tag
         determines which Fluentd match rules route the event downstream. The
@@ -71,7 +71,7 @@ paths:
   /{tag}.{format}:
     post:
       operationId: postEventWithFormat
-      summary: Post a log event with explicit format
+      summary: Fluentd Post a log event with explicit format
       description: >-
         Posts a single log event to Fluentd with both a tag and an explicit
         format specifier in the path. The format segment can be 'json' or
