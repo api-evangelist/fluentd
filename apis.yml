@@ -70,21 +70,21 @@ apis:
 common:
   - type: JSONSchema
     url: json-schema/fluentd-log-event-schema.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/fluentd-context.jsonld
   - type: Website
     url: https://www.fluentd.org/
   - type: Documentation
     url: https://docs.fluentd.org/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.fluentd.org/quickstart
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/fluent
   - type: GitHubRepository
     url: https://github.com/fluent/fluentd
   - type: Blog
     url: https://www.fluentd.org/blog/
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/fluent/fluentd/blob/master/CHANGELOG.md
   - type: Community
     url: https://www.fluentd.org/community/
