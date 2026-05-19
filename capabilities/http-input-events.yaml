@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Fluentd HTTP Input API — Events
+  description: 'Fluentd HTTP Input API — Events. 2 operations. Lead operation: Fluentd Post a log event. Self-contained Naftiko
+    capability covering one Fluentd business surface.'
+  tags:
+  - Fluentd
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FLUENTD_API_KEY: FLUENTD_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-input-events
+    baseUri: http://localhost:8888
+    description: Fluentd HTTP Input API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: tag
+      path: /{tag}
+      operations:
+      - name: postevent
+        method: POST
+        description: Fluentd Post a log event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: tag}.{format
+      path: /{tag}.{format}
+      operations:
+      - name: posteventwithformat
+        method: POST
+        description: Fluentd Post a log event with explicit format
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: http-input-events-rest
+    port: 8080
+    description: REST adapter for Fluentd HTTP Input API — Events. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{tag}
+      name: tag
+      description: REST surface for tag.
+      operations:
+      - method: POST
+        name: postevent
+        description: Fluentd Post a log event
+        call: http-input-events.postevent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{tag-format}
+      name: tag-format
+      description: REST surface for tag}.{format.
+      operations:
+      - method: POST
+        name: posteventwithformat
+        description: Fluentd Post a log event with explicit format
+        call: http-input-events.posteventwithformat
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-input-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Fluentd HTTP Input API — Events. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: fluentd-post-log-event
+      description: Fluentd Post a log event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: http-input-events.postevent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: fluentd-post-log-event-explicit
+      description: Fluentd Post a log event with explicit format
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: http-input-events.posteventwithformat
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
