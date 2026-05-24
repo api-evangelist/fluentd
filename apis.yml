@@ -87,6 +87,8 @@ common:
   url: https://docs.fluentd.org/quickstart/support
 - type: Slack
   url: https://slack.fluentd.org/
+- type: LLMsTxt
+  url: https://docs.fluentd.org/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
