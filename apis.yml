@@ -89,7 +89,7 @@ common:
     url: https://docs.fluentd.org/quickstart/support
   - type: Slack
     url: https://slack.fluentd.org/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.fluentd.org/llms.txt
 maintainers:
   - FN: Kin Lane
