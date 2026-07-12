@@ -65,6 +65,8 @@ apis:
       - type: OpenAPI
         url: openapi/fluentd-http-input-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/fluentd-domain-security.yml
   - type: JSONSchema
     url: json-schema/fluentd-log-event-schema.json
   - type: JSONLD
