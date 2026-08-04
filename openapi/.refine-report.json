@@ -1,0 +1,14 @@
+{
+  "provider": "fluentd",
+  "sources": [
+    "fluentd-events-api-openapi.yml"
+  ],
+  "outputs": [
+    "fluentd-events-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
