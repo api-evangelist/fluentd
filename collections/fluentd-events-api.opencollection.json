@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fluentd HTTP Input Events API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fluentd Post a log event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/:tag",
+            "params": [
+              {
+                "name": "tag",
+                "value": "",
+                "type": "path",
+                "description": "The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts a single log event to Fluentd with the specified tag. The tag determines which Fluentd match rules route the event downstream. The request body can be JSON, MessagePack, or form-encoded. When sending JSON, the Content-Type must be application/json. The time field can be supplied in the body or omitted to use the server receive time."
+        },
+        {
+          "info": {
+            "name": "Fluentd Post a log event with explicit format",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8888/:tag.:format",
+            "params": [
+              {
+                "name": "tag",
+                "value": "",
+                "type": "path",
+                "description": "The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path",
+                "description": "Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts a single log event to Fluentd with both a tag and an explicit format specifier in the path. The format segment can be 'json' or 'msgpack' and overrides Content-Type-based format detection. This is useful for clients that cannot set Content-Type headers correctly."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

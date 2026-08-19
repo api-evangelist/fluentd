@@ -1,0 +1,462 @@
+{
+  "item": [
+    {
+      "id": "93877369-2918-46b4-95e7-6401ef0fabe6",
+      "name": "Events",
+      "description": {
+        "content": "Operations for posting log events and records to Fluentd via HTTP.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5000fbb6-adb5-467d-b895-0df9f319d9a0",
+          "name": "Fluentd Post a log event",
+          "request": {
+            "name": "Fluentd Post a log event",
+            "description": {
+              "content": "Posts a single log event to Fluentd with the specified tag. The tag determines which Fluentd match rules route the event downstream. The request body can be JSON, MessagePack, or form-encoded. When sending JSON, the Content-Type must be application/json. The time field can be supplied in the body or omitted to use the server receive time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":tag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tag",
+                  "description": "(Required) The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93a21cef-4a6e-4895-b702-79b123527d72",
+              "name": "Event accepted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag",
+                      "description": "(Required) The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ab91e75-298b-4520-ba48-a38e9c18d025",
+              "name": "Bad request. The payload is malformed or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag",
+                      "description": "(Required) The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5c14a02f-fe83-440f-98cd-a6fe9afcc7f6",
+              "name": "Internal server error. Fluentd failed to process the event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":tag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tag",
+                      "description": "(Required) The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8e69942-7193-4304-85c0-604a8a7a50f6",
+          "name": "Fluentd Post a log event with explicit format",
+          "request": {
+            "name": "Fluentd Post a log event with explicit format",
+            "description": {
+              "content": "Posts a single log event to Fluentd with both a tag and an explicit format specifier in the path. The format segment can be 'json' or 'msgpack' and overrides Content-Type-based format detection. This is useful for clients that cannot set Content-Type headers correctly.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "{{tag}}.{{format}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e910832c-dbe8-4694-8801-bada7be5b5b3",
+              "name": "Event accepted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "{{tag}}.{{format}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38debffb-29d3-4269-a403-2a7b38eea00f",
+              "name": "Bad request. The payload is malformed or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "{{tag}}.{{format}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75429708-49b4-4915-bbc5-aac11cef8b84",
+              "name": "Internal server error. Fluentd failed to process the event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "{{tag}}.{{format}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "level",
+                      "value": "warn"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "message",
+                      "value": "Disk usage above 80%"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "host",
+                      "value": "web-01"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8888",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "tag"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "format"
+    }
+  ],
+  "info": {
+    "_postman_id": "6bcf9344-8ffe-414c-9156-61a850111d44",
+    "name": "Fluentd HTTP Input Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Fluentd HTTP Input plugin exposes an HTTP endpoint that accepts log records posted as JSON, MessagePack, or form-encoded data. It allows applications to send events to Fluentd over standard HTTP, making it accessible from any language or platform that can make HTTP requests. Events can be sent individually or in batches, and the tag routing system determines downstream processing pipelines.\n\nContact Support:\n Name: Fluentd Community",
+      "type": "text/plain"
+    }
+  }
+}
