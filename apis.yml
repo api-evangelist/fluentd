@@ -24,6 +24,10 @@ specificationVersion: '0.23'
 tags:
   - Data Collection
   - Logging
+  - Open-Source
+tags_raw:
+  - Data Collection
+  - Logging
   - Open Source
 apis:
 - aid: fluentd:fluentd-plugin-api
@@ -34,6 +38,10 @@ apis:
     management system to extend data collection and processing pipelines.
   humanURL: https://docs.fluentd.org/plugin-development
   tags:
+  - Open-Source
+  - Plugin Development
+  - Ruby
+  tags_raw:
   - Open Source
   - Plugin Development
   - Ruby
@@ -65,6 +73,8 @@ apis:
   description: Operations for posting log events and records to Fluentd via HTTP.
   humanURL: https://docs.fluentd.org/plugin-development
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
