@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Fluentd HTTP Input Events API
   description: The Fluentd HTTP Input plugin exposes an HTTP endpoint that accepts log records posted as JSON, MessagePack, or form-encoded data. It allows applications to send events to Fluentd over standard HTTP, making it accessible from any language or platform that can make HTTP requests. Events can be sent individually or in batches, and the tag routing system determines downstream processing pipelines.
@@ -77,25 +77,6 @@ paths:
         '500':
           description: Internal server error. Fluentd failed to process the event.
 components:
-  parameters:
-    format:
-      name: format
-      in: path
-      required: true
-      description: Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'.
-      schema:
-        type: string
-        enum:
-        - json
-        - msgpack
-    tag:
-      name: tag
-      in: path
-      required: true
-      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
-      schema:
-        type: string
-        example: myapp.access
   schemas:
     EventRecord:
       type: object
@@ -122,6 +103,25 @@ components:
         level: warn
         message: Disk usage above 80%
         host: web-01
+  parameters:
+    tag:
+      name: tag
+      in: path
+      required: true
+      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
+      schema:
+        type: string
+        example: myapp.access
+    format:
+      name: format
+      in: path
+      required: true
+      description: Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'.
+      schema:
+        type: string
+        enum:
+        - json
+        - msgpack
 externalDocs:
   description: Fluentd HTTP Input Plugin Documentation
   url: https://docs.fluentd.org/input/http
