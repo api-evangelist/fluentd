@@ -78,6 +78,15 @@ paths:
           description: Internal server error. Fluentd failed to process the event.
 components:
   schemas:
+    FormEventRecord:
+      type: object
+      description: A Fluentd log event submitted as URL-encoded form data. Each form field becomes a key-value pair in the event record.
+      additionalProperties:
+        type: string
+      example:
+        level: warn
+        message: Disk usage above 80%
+        host: web-01
     EventRecord:
       type: object
       description: A Fluentd log event record submitted via HTTP. The 'json' property wraps the actual log payload. An optional 'time' field sets the event timestamp; if omitted, Fluentd uses the server receive time.
@@ -94,24 +103,7 @@ components:
           type: integer
           description: Unix epoch timestamp for the event in seconds. If omitted, the Fluentd server assigns the receive time.
           example: 1700000000
-    FormEventRecord:
-      type: object
-      description: A Fluentd log event submitted as URL-encoded form data. Each form field becomes a key-value pair in the event record.
-      additionalProperties:
-        type: string
-      example:
-        level: warn
-        message: Disk usage above 80%
-        host: web-01
   parameters:
-    tag:
-      name: tag
-      in: path
-      required: true
-      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
-      schema:
-        type: string
-        example: myapp.access
     format:
       name: format
       in: path
@@ -122,6 +114,14 @@ components:
         enum:
         - json
         - msgpack
+    tag:
+      name: tag
+      in: path
+      required: true
+      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
+      schema:
+        type: string
+        example: myapp.access
 externalDocs:
   description: Fluentd HTTP Input Plugin Documentation
   url: https://docs.fluentd.org/input/http
