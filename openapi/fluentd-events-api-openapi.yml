@@ -77,32 +77,6 @@ paths:
         '500':
           description: Internal server error. Fluentd failed to process the event.
 components:
-  schemas:
-    FormEventRecord:
-      type: object
-      description: A Fluentd log event submitted as URL-encoded form data. Each form field becomes a key-value pair in the event record.
-      additionalProperties:
-        type: string
-      example:
-        level: warn
-        message: Disk usage above 80%
-        host: web-01
-    EventRecord:
-      type: object
-      description: A Fluentd log event record submitted via HTTP. The 'json' property wraps the actual log payload. An optional 'time' field sets the event timestamp; if omitted, Fluentd uses the server receive time.
-      properties:
-        json:
-          type: object
-          description: The log record payload as an arbitrary key-value object. All fields are application-defined and passed through to downstream outputs.
-          additionalProperties: true
-          example:
-            level: info
-            message: User login successful
-            user_id: 42
-        time:
-          type: integer
-          description: Unix epoch timestamp for the event in seconds. If omitted, the Fluentd server assigns the receive time.
-          example: 1700000000
   parameters:
     format:
       name: format
@@ -122,6 +96,32 @@ components:
       schema:
         type: string
         example: myapp.access
+  schemas:
+    EventRecord:
+      type: object
+      description: A Fluentd log event record submitted via HTTP. The 'json' property wraps the actual log payload. An optional 'time' field sets the event timestamp; if omitted, Fluentd uses the server receive time.
+      properties:
+        json:
+          type: object
+          description: The log record payload as an arbitrary key-value object. All fields are application-defined and passed through to downstream outputs.
+          additionalProperties: true
+          example:
+            level: info
+            message: User login successful
+            user_id: 42
+        time:
+          type: integer
+          description: Unix epoch timestamp for the event in seconds. If omitted, the Fluentd server assigns the receive time.
+          example: 1700000000
+    FormEventRecord:
+      type: object
+      description: A Fluentd log event submitted as URL-encoded form data. Each form field becomes a key-value pair in the event record.
+      additionalProperties:
+        type: string
+      example:
+        level: warn
+        message: Disk usage above 80%
+        host: web-01
 externalDocs:
   description: Fluentd HTTP Input Plugin Documentation
   url: https://docs.fluentd.org/input/http
