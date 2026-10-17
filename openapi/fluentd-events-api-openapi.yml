@@ -77,25 +77,6 @@ paths:
         '500':
           description: Internal server error. Fluentd failed to process the event.
 components:
-  parameters:
-    format:
-      name: format
-      in: path
-      required: true
-      description: Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'.
-      schema:
-        type: string
-        enum:
-        - json
-        - msgpack
-    tag:
-      name: tag
-      in: path
-      required: true
-      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
-      schema:
-        type: string
-        example: myapp.access
   schemas:
     FormEventRecord:
       type: object
@@ -122,6 +103,25 @@ components:
           type: integer
           description: Unix epoch timestamp for the event in seconds. If omitted, the Fluentd server assigns the receive time.
           example: 1700000000
+  parameters:
+    format:
+      name: format
+      in: path
+      required: true
+      description: Explicit format specifier for the request body. Accepted values are 'json' and 'msgpack'.
+      schema:
+        type: string
+        enum:
+        - json
+        - msgpack
+    tag:
+      name: tag
+      in: path
+      required: true
+      description: The Fluentd tag for this event. Tags use dot-separated hierarchical notation (e.g., myapp.access, production.web.error) and are used by match directives to route events to outputs.
+      schema:
+        type: string
+        example: myapp.access
 externalDocs:
   description: Fluentd HTTP Input Plugin Documentation
   url: https://docs.fluentd.org/input/http
